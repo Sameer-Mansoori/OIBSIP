@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fitness Landing Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      line-height: 1.6;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .header img {
+      height: 80px;
+    }
+
+    .nav {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav li {
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .nav li:hover {
+      color: blue;
+    }
+
+    .nav li.active {
+      color: white;
+      background-color: rgb(10, 39, 10);
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .actions button {
+      background-color: rgb(10, 39, 10);
+      color: white;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      background-color: white;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: 15px 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+
+    .mobile-nav li {
+      font-size: 16px;
+      padding: 8px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .mobile-nav li:hover {
+      color: blue;
+    }
+
+    .hero {
+      background-image: url('https://images.pexels.com/photos/6388989/pexels-photo-6388989.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5); /* dark overlay */
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    @keyframes slideUpFade {
+      0% {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .hero h1 {
+      font-size: 50px;
+      margin-bottom: 20px;
+      animation: slideUpFade 1s ease-in-out;
+    }
+
+    .hero span {
+      color: #4fc3f7;
+      font-weight: bold;
+    }
+
+    .centre {
+      background-color: rgb(10, 39, 10);
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .centre i {
+      margin: 0 5px;
+    }
+
+    .explore {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .explore h2 {
+      font-size: 40px;
+      margin-bottom: 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .grid-box {
+      background-color: #f5f5f5;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .grid-box img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .grid-box h3 {
+      margin: 15px;
+      color: #333;
+    }
+
+    .grid-box p {
+      margin: 0 15px 15px 15px;
+      color: #555;
+    }
+
+    .contact {
+      padding: 60px 20px;
+      background-color: #e0e0e0;
+      text-align: center;
+    }
+
+    .contact h2 {
+      margin-bottom: 30px;
+      font-size: 36px;
+    }
+
+    .contact form {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact input, .contact textarea {
+      padding: 12px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .contact button {
+      background-color: rgb(10, 39, 10);
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .footer {
+      background-color: rgb(10, 39, 10);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .footer .social-icons {
+      margin-top: 10px;
+    }
+
+    .footer .social-icons a {
+      color: white;
+      margin: 0 10px;
+      font-size: 20px;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        flex-wrap: wrap;
+        padding: 15px 20px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .menu-icon {
+        display: block;
+      }
+
+      .actions {
+        order: 2;
+        flex: 1;
+        justify-content: center;
+      }
+
+      .header img {
+        order: 1;
+      }
+
+      .menu-icon {
+        order: 3;
+      }
+
+      .hero {
+        height: auto;
+        padding: 60px 20px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .centre {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="https://www.creativefabrica.com/wp-content/uploads/2020/02/10/Gym-Logo-Graphics-1-29-580x386.jpg" alt="Logo" />
+    <ul class="nav">
+      <li class="active">Home</li>
+      <li>Services</li>
+      <li>Training</li>
+      <li>About Us</li>
+      <li>Contact Us</li>
+      <li>Help</li>
+    </ul>
+    <div class="actions">
+      <span style="font-weight: bold;">Login |</span>
+      <button>Register</button>
+    </div>
+    <i class="fas fa-bars menu-icon" onclick="toggleMenu()"></i>
+    <ul class="mobile-nav" id="mobileNav">
+      <li>Home</li>
+      <li>Services</li>
+      <li>Training</li>
+      <li>About Us</li>
+      <li>Contact Us</li>
+      <li>Help</li>
+    </ul>
+  </div>
+
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Want To Improve<br>Your <span>FITNESS</span>?</h1>
+      <p>
+        Physical <span>fitness</span> refers to the <span>ability</span> of the body to function <span>efficiently</span> and effectively in daily <span>activities</span>. It includes important <span>components</span> such as strength, <span>endurance</span>, flexibility, and body <span>composition</span>.
+      </p>
+    </div>
+  </div>
+
+  <div class="centre">
+    FITNESS <i class="fa-regular fa-star"></i> FITNESS <i class="fa-regular fa-star"></i> FITNESS <i class="fa-regular fa-star"></i>
+  </div>
+
+  <section class="explore">
+    <h2>Explore Fitness First</h2>
+    <div class="grid">
+      <div class="grid-box">
+        <img src="https://images.pexels.com/photos/7992078/pexels-photo-7992078.jpeg" alt="Personal Training" />
+        <h3>Personal Training</h3>
+        <p>Customized workout plans tailored to your goals.</p>
+      </div>
+      <div class="grid-box">
+        <img src="https://images.pexels.com/photos/7894492/pexels-photo-7894492.jpeg" alt="Group Fitness" />
+        <h3>Group Classes</h3>
+        <p>Engaging group sessions to keep you motivated.</p>
+      </div>
+      <div class="grid-box">
+        <img src="https://images.pexels.com/photos/17839605/pexels-photo-17839605/free-photo-of-a-woman-in-a-red-top-and-black-shorts-is-lifting-weights.jpeg" alt="Nutrition Guidance" />
+        <h3>Nutrition Guidance</h3>
+        <p>Expert advice to complement your fitness journey.</p>
+      </div>
+      <div class="grid-box">
+        <img src="https://images.pexels.com/photos/4056535/pexels-photo-4056535.jpeg" alt="Yoga" />
+        <h3>Yoga Sessions</h3>
+        <p>Enhance flexibility and mindfulness with yoga.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>Contact Us</h2>
+    <form action="mailto:your-email@example.com" method="post" enctype="text/plain">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 Fitness First. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById("mobileNav");
+      nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+    }
+  </script>
+
+</body>
+</html>
